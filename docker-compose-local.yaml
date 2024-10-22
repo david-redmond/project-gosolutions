@@ -10,6 +10,7 @@ services:
       - PORT=4200
       - USER_SERVICE=http://localhost:8010
       - SECRET_KEY=david-is-cool
+      - MONGODB_URI=mongodb+srv://Development:Password.0@cluster0.lpdtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
     networks:
       - internal_network
 
@@ -35,6 +36,7 @@ services:
       - internal.env
     environment:
       - PORT=8010
+      - MONGODB_URI=mongodb+srv://Development:Password.0@cluster0.lpdtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
     networks:
       - internal_network
 
