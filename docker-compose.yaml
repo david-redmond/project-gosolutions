@@ -10,6 +10,7 @@ services:
       - PORT=4200
       - USER_SERVICE=http://user-service:8010
       - SECRET_KEY=david-is-cool
+      - MONGODB_URI=mongodb+srv://Development:Password.0@cluster0.lpdtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
     networks:
       - internal_network
 
@@ -44,6 +45,7 @@ services:
         - PORT=4100
         - REACT_APP_GATEWAY_URL=https://gateway.project-frida.online
         - REACT_APP_AUTH_URL=https://auth.project-frida.online
+        - MONGODB_URI=mongodb+srv://Development:Password.0@cluster0.lpdtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
   frida-storefront:
     image: daver2910/frida-storefront-ui:latest
