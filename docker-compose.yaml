@@ -5,24 +5,12 @@ services:
     image: daver2910/authentication-service:latest
     restart: always
     ports:
-      - 4200:4200
+      - 5101:5101
     environment:
-      - PORT=4200
-      - USER_SERVICE=http://user-service:8010
+      - PORT=5101
+      - USER_SERVICE=http://user-service:5102
       - SECRET_KEY=david-is-cool
       - MONGODB_URI=mongodb+srv://Development:Password.0@cluster0.lpdtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-    networks:
-      - internal_network
-
-  frida-gateway:
-    image: daver2910/frida-gateway:latest
-    restart: always
-    ports:
-      - 8000:8000
-    env_file:
-      - internal.env
-    environment:
-      - PORT=8000
     networks:
       - internal_network
 
@@ -32,29 +20,42 @@ services:
     env_file:
       - internal.env
     environment:
-      - PORT=8010
+      - PORT=5102
     networks:
       - internal_network
 
-  frida-admin:
+  go-solutions-gateway:
+    image: daver2910/frida-gateway:latest
+    restart: always
+    ports:
+      - 5200:5200
+    env_file:
+      - internal.env
+    environment:
+      - PORT=5200
+      - USER_SERVICE=http://user-service:5102
+    networks:
+      - internal_network
+
+  go-solutions-admin:
     image: daver2910/frida-admin:latest
     restart: always
     ports:
-      - 4100:4100
+      - 5201:5201
     environment:
-        - PORT=4100
-        - REACT_APP_GATEWAY_URL=https://gateway.project-frida.online
-        - REACT_APP_AUTH_URL=https://auth.project-frida.online
+        - PORT=5201
+        - REACT_APP_GATEWAY_URL=https://gateway.gosolutions.ie
+        - REACT_APP_AUTH_URL=https://auth.gosolutions.ie
         - MONGODB_URI=mongodb+srv://Development:Password.0@cluster0.lpdtr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
-  frida-storefront:
-    image: daver2910/frida-storefront-ui:latest
+  go-solutions:
+    image: daver2910/gosolutions:latest
     restart: always
     ports:
-      - 4000:4000
+      - 5202:5202
     environment:
-      - PORT=4000
-      - REACT_APP_ENDPOINT=https://gateway.project-frida.online
+      - PORT=5202
+      - REACT_APP_ENDPOINT=https://gateway.gosolutions.ie
 
 networks:
   internal_network:
